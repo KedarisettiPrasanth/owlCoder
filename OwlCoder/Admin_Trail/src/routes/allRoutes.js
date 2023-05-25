@@ -6,12 +6,16 @@ import UserProfile from "../pages/Authentication/user-profile";
 //Users
 import AddUser from "../pages/Users/AddUser";
 import UsersList from "../pages/Users/UsersList";
-import ManageUser from "../pages/Users/ManageUser";
+// import ManageUser from "../pages/Users/ManageUser";
 
-//Users
+//Courses
 import AddCourse from "../pages/Courses/AddCourse";
-import Addd from "../pages/Courses/addd";
 import CoursesList from "../pages/Courses/CoursesList";
+
+//Batches
+import AddBatch from "../pages/Batches/AddBatch";
+import BatchesList from "../pages/Batches/BatchesList";
+
 
 // Pages Calendar
 import Calendar from "../pages/Calendar/index";
@@ -133,9 +137,12 @@ const userRoutes = [
 
   //Courses
   { path: "/add-course", component: <AddCourse /> },
-  { path: "/addd", component: <Addd /> },
   { path: "/courses-list", component: <CoursesList /> },
 
+  //Batches
+  { path: "/add-batch", component: <AddBatch /> },
+  { path: "/batches-list", component: <BatchesList /> },
+  
 
   // //calendar
   { path: "/calendar", component: <Calendar /> },
