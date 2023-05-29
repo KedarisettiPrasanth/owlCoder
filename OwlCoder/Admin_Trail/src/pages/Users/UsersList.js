@@ -21,8 +21,14 @@ const UsersList = () => {
   const data = {
     columns: [
       {
-        label: "Username",
-        field: "user_name",
+        label: "First Name",
+        field: "first_name",
+        sort: "asc",
+        width: 150,
+      },
+      {
+        label: "Last Name",
+        field: "last_name",
         sort: "asc",
         width: 150,
       },
@@ -33,21 +39,44 @@ const UsersList = () => {
         width: 270,
       },
       {
-        label: "Password",
-        field: "password",
+        label: "Profile Pic",
+        field: "profile_pic",
+        sort: "asc",
+        width: 200,
+      },
+      {
+        label: "Emp Id",
+        field: "emp_id",
+        sort: "asc",
+        width: 200,
+      },
+      {
+        label: "Phone",
+        field: "phone",
+        sort: "asc",
+        width: 200,
+      },
+      {
+        label: "Status",
+        field: "status",
         sort: "asc",
         width: 200,
       },
       {
         label: "userType",
-        field: "userType",
+        field: "user_type",
         sort: "asc",
         width: 200,
       },
     ],
     rows: users
   };
-
+  if(data){
+    users.map((item)=>{
+      // console.log(item)
+      item.profile_pic = (<img src={"../../../Admin_Backend/uploads/user_icons/"+item.profile_pic} alt="image"/>)
+    })
+  }
   
   document.title = "Users List";
   return (
