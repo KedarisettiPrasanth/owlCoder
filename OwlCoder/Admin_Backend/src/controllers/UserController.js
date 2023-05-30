@@ -3,6 +3,7 @@ var path = require('path')
 const fs = require('fs');
  const Register = async (req, res, next) => {    
     const { first_name, last_name, email, password, user_type, emp_id, phone, added_by, created_date, updated_date, status} = req.body;
+    if(req.files[0]){
     const original_name = req.files[0]['originalname'];
     const extension = path.extname(original_name);
     const profile_pic = "uploads/user_icons/"+ req.files[0]['filename']+extension;
@@ -10,6 +11,10 @@ const fs = require('fs');
     fs.rename("uploads/user_icons/"+ req.files[0]['filename'], profile_pic, function (err) {
         if (err) throw err;
       });
+    }
+    else{
+      profile_pic="";
+    }
     let user;
     
         user = new User({

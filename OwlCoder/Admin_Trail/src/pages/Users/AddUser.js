@@ -24,13 +24,31 @@ import Breadcrumbs from "../../components/Common/Breadcrumb";
 import { axiosAPI } from "components/VerticalLayout/SidebarContent";
 import { useNavigate } from "react-router-dom";
 
+import { ToastContainer, toast } from 'react-toastify';
+
+import 'react-toastify/dist/ReactToastify.css';
 
 const AddUser = () => {
     const added_by = JSON.parse(localStorage.getItem("authUser"));
-    
+    const [formErrors, setFormErrors] = useState({});
     const navigate = useNavigate();
     const [file, setFile] = useState();  
-    const [data, setData] = useState();
+    const [data, setData] = useState(
+        {
+            "first_name":"",
+            "last_name":"",
+            "email":"",
+            "password":"",
+            "user_type":"",
+            "profile_pic":"",
+            "emp_id":"",
+            "phone":"",
+            "added_by":"",
+            "created_date":"",
+            "updated_date":"",
+            "status":0
+        }
+    );
 
 
     const fileChange = (e) => {
@@ -46,6 +64,15 @@ const AddUser = () => {
 
     //Submit 
     const UserAddSubmit = ()=>{
+        setFormErrors(validate(data));
+        var err_res = validate(data);  
+        console.log(err_res);  
+        // console.log(validate(studentdata).length);
+        // let objectLength = Object.entries(err_res).length; 
+        // console.log(objectLength);
+        //     setFormErrors(validate(data));
+        // if(objectLength == 0)
+        // {  
         let formData = new FormData();
         formData.append('first_name', data.first_name)
         formData.append('last_name', data.last_name)
@@ -65,6 +92,12 @@ const AddUser = () => {
             console.log("hi")
             if(res.status==201){
                 alert("user added")
+                toast.success('user Added', {
+                    position: "top-right",
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                });
                 // navigate("/users-list")
             }
         }).catch((error) => {
@@ -72,8 +105,15 @@ const AddUser = () => {
             if (error.response.status === 400) {
              console.log(error.message);
              alert("user not added")
+             toast.error('not Added', {
+                position: "top-right",
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+            });
             }
          })
+        // }
     }
 
     const userTypeOptions = [
@@ -141,6 +181,9 @@ const AddUser = () => {
         }
     }
 
+    const validate = (values) => {
+    
+    }
 
 
     //for change tooltip display propery
@@ -360,6 +403,7 @@ const AddUser = () => {
                                             return false;
                                             
                                         }}>
+                                            <ToastContainer/>
                                         <Row>
                                             <Col md="6">
                                                 <FormGroup className="mb-3">
