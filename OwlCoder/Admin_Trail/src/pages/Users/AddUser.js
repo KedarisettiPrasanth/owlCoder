@@ -30,7 +30,20 @@ const AddUser = () => {
     
     const navigate = useNavigate();
     const [file, setFile] = useState();  
-    const [data, setData] = useState();
+    const [data, setData] = useState({
+        "first_name" : '',
+        "last_name" : '',
+        "email" : '',
+        "password" : '',
+        "user_type" : '',
+        "profile_pic" : '',
+        "emp_id" : '',
+        "phone" : '',
+        "added_by" : '',
+        "updated_date" : '',
+        "status" : ''
+
+    });
 
 
     const fileChange = (e) => {
@@ -61,8 +74,6 @@ const AddUser = () => {
         formData.append('status', 1);
         // console.log(data)
         axiosAPI.post("http://localhost:5001/register", formData).then((res)=>{
-            console.log(res.status + "is the res status in front end")
-            console.log("hi")
             if(res.status==201){
                 alert("user added")
                 // navigate("/users-list")
