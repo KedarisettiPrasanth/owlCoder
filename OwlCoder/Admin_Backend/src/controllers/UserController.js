@@ -1,4 +1,5 @@
 const User = require('../Models/Users');
+<<<<<<< HEAD
 var path = require('path')
 const fs = require('fs');
 const Register = async (req, res, next) => {
@@ -52,6 +53,46 @@ const Register = async (req, res, next) => {
   //     return res.status(500).json({ message: "User details not saved" })
   // }
   // return res.status(201).json({ message:"User Added successfully" })
+=======
+
+ const Register = async (req, res, next) => {    
+<<<<<<< HEAD
+    const { email, user_name, password, userType} = req.body;
+=======
+    const { first_name, last_name, email, password, user_type, emp_id, phone, added_by, created_date, updated_date, status} = req.body;
+    let profile_pic;
+    if(req.files[0]){
+    const original_name = req.files[0]['originalname'];
+    const extension = path.extname(original_name);
+    profile_pic = "uploads/user_icons/"+ req.files[0]['filename']+extension;
+    const size = req.files[0]['size'];
+    fs.rename("uploads/user_icons/"+ req.files[0]['filename'], profile_pic, function (err) {
+        if (err) throw err;
+      });
+    }
+    else{
+      profile_pic="";
+    }
+    let user;
+>>>>>>> 8c99dbaa76fbcc6bff482212b64c8fef746f065a
+    
+    let user;
+    try {
+        user = new User({
+            user_name,
+            email,
+            password,
+            userType
+        });
+        await user.save()
+    } catch (err) {
+        console.log(err);
+    }
+    if (!user) {
+        return res.status(500).json({ message: "User details not saved" })
+    }
+    return res.status(201).json({ message:"User Added successfully" })
+>>>>>>> parent of c0ad60c (Merge branch 'development' of https://github.com/KedarisettiPrasanth/owlCoder into development)
 }
 
 const getUsers = async (req, res, next) => {

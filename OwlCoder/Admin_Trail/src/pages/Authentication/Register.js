@@ -20,6 +20,10 @@ import logoSm from "../../assets/images/logo-sm.png";
 import { preventDefault } from "@fullcalendar/react";
 import { axiosAPI } from "components/VerticalLayout/SidebarContent";
 
+
+import { ToastContainer, toast } from 'react-toastify';
+import { useHistory } from 'react-router-dom';
+import 'react-toastify/dist/ReactToastify.css';
 let userValues = '';
 const Register = props => {
   const history = useNavigate();
@@ -69,7 +73,16 @@ const Register = props => {
       user_name:userValues.username,
       email:userValues.email,
       password:userValues.password,
-    }).then(res=>res.data).catch((err)=>console.log(err))  
+    }).then(res=>res.data)
+    .catch((err)=>{console.log(err)
+    
+    toast.error('not Added', {
+      position: "top-right",
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+  })
+});  
  }
 
 
@@ -118,7 +131,7 @@ const Register = props => {
                       return false;
                     }}
                       action="#">
-
+                         <ToastContainer />
                       <div className="mb-3">
                         <Label className="form-label" htmlFor="useremail">Email</Label>
                         <Input

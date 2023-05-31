@@ -3,16 +3,10 @@ const mongoose = require('mongoose');
 
 const schema = mongoose.Schema;
 const User = new schema({
-    first_name: {
+    user_name: {
         type: String,
         required: true,
-        minlength: 1,
-        maxlength: 50
-    },
-    last_name: {
-        type: String,
-        required: true,
-        minlength: 1,
+        minlength: 5,
         maxlength: 50
     },
     email: {
@@ -26,13 +20,14 @@ const User = new schema({
         type: String,
         required: true,
         minlength: 5,
-        maxlength: 12
+        maxlength: 1024
     },
-    user_type:{
+    userType:{
         type:String,
         required:true,
         minlength:2,
         maxlength:20
+<<<<<<< HEAD
     },
     profile_pic:{
         type:String,
@@ -81,8 +76,9 @@ const User = new schema({
         required: true,
         minlength: 1,
         maxlength: 2
+=======
+>>>>>>> parent of c0ad60c (Merge branch 'development' of https://github.com/KedarisettiPrasanth/owlCoder into development)
     }
-
 });
 
 module.exports = mongoose.model("User", User);

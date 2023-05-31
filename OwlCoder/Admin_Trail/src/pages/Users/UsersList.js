@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { MDBDataTable } from "mdbreact";
-import { Row, Col, Card, CardBody, CardTitle, CardSubtitle } from "reactstrap";
+import { Row, Col, Card, CardBody, CardTitle, CardSubtitle, Badge  } from "reactstrap";
 import SidebarContent, { axiosAPI } from "components/VerticalLayout/SidebarContent";
 import AddCourse from "pages/Courses/AddCourse";
 //Import Breadcrumb
@@ -42,14 +42,8 @@ const UsersList = () => {
 
     columns: [
       {
-        label: "First Name",
-        field: "first_name",
-        sort: "asc",
-        width: 150,
-      },
-      {
-        label: "Last Name",
-        field: "last_name",
+        label: "Username",
+        field: "user_name",
         sort: "asc",
         width: 150,
       },
@@ -60,44 +54,46 @@ const UsersList = () => {
         width: 270,
       },
       {
-        label: "Profile Pic",
-        field: "profile_pic",
-        sort: "asc",
-        width: 200,
-      },
-      {
-        label: "Emp Id",
-        field: "emp_id",
-        sort: "asc",
-        width: 200,
-      },
-      {
-        label: "Phone",
-        field: "phone",
-        sort: "asc",
-        width: 200,
-      },
-      {
-        label: "Status",
-        field: "status",
+        label: "Password",
+        field: "password",
         sort: "asc",
         width: 200,
       },
       {
         label: "userType",
-        field: "user_type",
+        field: "userType",
         sort: "asc",
+        width: 200,
+      },
+      {
+        label: "Action",
+        field: "action",
+      
         width: 200,
       },
     ],
     rows: users
   };
+<<<<<<< HEAD
   if(data){
     users.map((item)=>{
+<<<<<<< HEAD
       console.log(item.profile_pic)
       item.profile_pic = (<img src={"http://localhost:5001/user-icons/"+ item.profile_pic} alt="image" height="75px" width="75px"/>)
+=======
+      // console.log(item)
+      item.profile_pic = (<img src={"../../../Admin_Backend/uploads/user_icons/"+item.profile_pic} alt="image"/>)
+      let activeBtn =  ( <Badge className="bg-success badge bg-secondary">ACTIVE</Badge>)
+      let inActiveBtn = ( <Badge className="bg-danger badge bg-secondary">INACTIVE</Badge>)
+      let isStatus = (item.status === 1 ? activeBtn : inActiveBtn)
+      item.status = (isStatus)
+      item.action = (<button className="btn btn-danger" ><i className="mdi mdi-account-edit"></i></button>)
+>>>>>>> 8c99dbaa76fbcc6bff482212b64c8fef746f065a
     })
   }
+=======
+
+>>>>>>> parent of c0ad60c (Merge branch 'development' of https://github.com/KedarisettiPrasanth/owlCoder into development)
   
   document.title = "Users List";
   return (
