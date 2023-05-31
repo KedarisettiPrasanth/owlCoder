@@ -1,70 +1,12 @@
 const User = require('../Models/Users');
-<<<<<<< HEAD
 var path = require('path')
 const fs = require('fs');
-const Register = async (req, res, next) => {
-  const { first_name, last_name, email, password, user_type, emp_id, phone, added_by, created_date, updated_date, status } = req.body;
-  const original_name = req.files[0]['originalname'];
-  const extension = path.extname(original_name);
-  const profile_pic = req.files[0]['filename'] + extension;
-  
-
-  const size = req.files[0]['size'];
-  fs.rename("uploads/user_icons/" + req.files[0]['filename'], "uploads/user_icons/"+profile_pic, function (err) {
-    if (err) throw err;
-  });
-  let user;
-
-  user = new User({
-    first_name,
-    last_name,
-    email,
-    password,
-    user_type,
-    profile_pic,
-    emp_id,
-    phone,
-    added_by,
-    created_date,
-    updated_date,
-    status,
-  });
-  if ((extension != '.png' || extension != '.jpg') && size > 70000) {
-    res.status(400).json({ message: "file type should be .jpg or .png and file size should not be greater than 70kb" })
-  } else {
-    await user.save().then(
-      () => {
-        res.status(201).json({
-          message: 'Post saved successfully!'
-        });
-      }
-    ).catch(
-      (error) => {
-        console.log(error);
-        res.status(400).json({
-          message: "adding user failed"
-        });
-      }
-    );
-  }
-
-
-  // if (!user) {
-  //     return res.status(500).json({ message: "User details not saved" })
-  // }
-  // return res.status(201).json({ message:"User Added successfully" })
-=======
-
  const Register = async (req, res, next) => {    
-<<<<<<< HEAD
-    const { email, user_name, password, userType} = req.body;
-=======
     const { first_name, last_name, email, password, user_type, emp_id, phone, added_by, created_date, updated_date, status} = req.body;
-    let profile_pic;
     if(req.files[0]){
     const original_name = req.files[0]['originalname'];
     const extension = path.extname(original_name);
-    profile_pic = "uploads/user_icons/"+ req.files[0]['filename']+extension;
+    const profile_pic = "uploads/user_icons/"+ req.files[0]['filename']+extension;
     const size = req.files[0]['size'];
     fs.rename("uploads/user_icons/"+ req.files[0]['filename'], profile_pic, function (err) {
         if (err) throw err;
@@ -74,76 +16,82 @@ const Register = async (req, res, next) => {
       profile_pic="";
     }
     let user;
->>>>>>> 8c99dbaa76fbcc6bff482212b64c8fef746f065a
     
-    let user;
-    try {
         user = new User({
-            user_name,
+            first_name,
+            last_name,
             email,
             password,
-            userType
+            user_type,
+            profile_pic,
+            emp_id,
+            phone,
+            added_by,
+            created_date,
+            updated_date,
+            status,
         });
-        await user.save()
-    } catch (err) {
-        console.log(err);
-    }
-    if (!user) {
-        return res.status(500).json({ message: "User details not saved" })
-    }
-    return res.status(201).json({ message:"User Added successfully" })
->>>>>>> parent of c0ad60c (Merge branch 'development' of https://github.com/KedarisettiPrasanth/owlCoder into development)
+        // if((extension!='.png' || extension != '.jpg') && size>70000){
+        //     return res.status(500).json({message:"file type should be .jpg or .png and file size should not be greater than 70kb"})
+        // }else{
+            
+        // }
+        await user.save().then(
+            () => {
+              res.status(201).json({
+                message: 'Post saved successfully!'
+              });
+            }
+          ).catch(
+            (error) => {
+                console.log(error)
+              res.status(400).json({
+                message: "adding user failed"
+              });
+            }
+          );
+    // if (!user) {
+    //     return res.status(500).json({ message: "User details not saved" })
+    // }
+    // return res.status(201).json({ message:"User Added successfully" })
 }
 
-const getUsers = async (req, res, next) => {
-  let users;
-  try {
-    users = await User.find({})
-  } catch (err) {
-    console.log(err)
-  }
-  if (!users) {
-    return res.status(500).json({ message: "Users not found" })
-  }
-  return res.status(201).json({ users })
+ const getUsers = async(req,res,next)=>{
+    let users;
+    try{
+        users = await User.find({})
+    } catch(err){
+        console.log(err)
+    }
+    if(!users){
+        return res.status(500).json({message:"Users not found"})
+    }
+    return res.status(201).json({users})
 }
 
-// const getUserByEmail = async (req,res,next)=>{
-//   let user;
-//   try{
-//     user = await User.find({email:req.params.eemail},{err,data})
-//   } catch(err){
-//     console.log(err)
-//   }
-//   if(!user){
-//     return res.status(500).json({message:"not user found with this email"})
-//   }
-//   return res.status(201).json({user})
-// }
+const loginUser = async(req,res,next)=>{
+    var data = {
+        email:req.body.email,
+        password:req.body.password
+    }
 
-const loginUser = async (req, res, next) => {
-  var data = {
-    email: req.body.email,
-    password: req.body.password
-  }
+    let user;
+    try{
+        user = await User.findOne(data)
+    } catch(err){
+        console.log(err)
+    }
 
-  let user;
-  try {
-    user = await User.findOne(data)
-  } catch (err) {
-    console.log(err)
-  }
-
-  if (!user) {
-    return res.status(500).json({ message: "login failed" })
-
-  }
-  // if(res.status==201){
-  //     //localStorage.setItem("currUsername", data.user_name);
-  //     //console.log(localStorage.getItem("currUsername"));
-  // }
-  return res.status(201).json({ "username": user.user_name, "email": user.email, "userType": user.userType })
-
+    if(!user){
+        return res.status(500).json({message:"login failed"})
+        
+    }
+    // if(res.status==201){
+    //     //localStorage.setItem("currUsername", data.user_name);
+    //     //console.log(localStorage.getItem("currUsername"));
+    // }
+    return res.status(201).json({"username":user.user_name, "email":user.email, "userType":user.userType})
+    
 }
 exports.Register = Register;
 exports.getUsers = getUsers;

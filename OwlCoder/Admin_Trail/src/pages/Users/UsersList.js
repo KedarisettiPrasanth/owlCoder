@@ -9,9 +9,7 @@ import "../Tables/datatables.scss";
 const UsersList = () => {
 
   const [users, setUsers] = useState([])
-  const [imagePath, setImagePath] = useState();
   const [loading, setLoading] = useState(false)
-    //Fetch all users list from db
     useEffect(() => {
     setLoading(true)
     axiosAPI.get("http://localhost:5001/users-list")
@@ -20,30 +18,17 @@ const UsersList = () => {
         setLoading(false)
       })
   }, [])
-
-  //getting profile pic path from node server
-  // useEffect(()=>{
-
-  //   async function fetchImagePath() {
-  //     try {
-  //       const response = await axiosAPI.get("http://localhost:5001/profile_pic");
-  //       setImagePath(response.data.profile_pic_path);
-  //     } catch (error) {
-  //       console.error('Error fetching image path:', error);
-  //     }
-  //   }
-
-  //   fetchImagePath();  
-
-
-  // })
-  //console.log(imagePath)
   const data = {
-
     columns: [
       {
-        label: "Username",
-        field: "user_name",
+        label: "First Name",
+        field: "first_name",
+        sort: "asc",
+        width: 150,
+      },
+      {
+        label: "Last Name",
+        field: "last_name",
         sort: "asc",
         width: 150,
       },
@@ -54,14 +39,32 @@ const UsersList = () => {
         width: 270,
       },
       {
-        label: "Password",
-        field: "password",
+        label: "Profile Pic",
+        field: "profile_pic",
+        sort: "asc",
+        width: 200,
+      },
+      {
+        label: "Emp Id",
+        field: "emp_id",
+        sort: "asc",
+        width: 200,
+      },
+      {
+        label: "Phone",
+        field: "phone",
+        sort: "asc",
+        width: 200,
+      },
+      {
+        label: "Status",
+        field: "status",
         sort: "asc",
         width: 200,
       },
       {
         label: "userType",
-        field: "userType",
+        field: "user_type",
         sort: "asc",
         width: 200,
       },
@@ -76,8 +79,6 @@ const UsersList = () => {
   };
   if(data){
     users.map((item)=>{
-      console.log(item.profile_pic)
-      item.profile_pic = (<img src={"http://localhost:5001/user-icons/"+ item.profile_pic} alt="image" height="75px" width="75px"/>)
       // console.log(item)
       item.profile_pic = (<img src={"../../../Admin_Backend/uploads/user_icons/"+item.profile_pic} alt="image"/>)
       let activeBtn =  ( <Badge className="bg-success badge bg-secondary">ACTIVE</Badge>)
@@ -87,8 +88,6 @@ const UsersList = () => {
       item.action = (<button className="btn btn-danger" ><i className="mdi mdi-account-edit"></i></button>)
     })
   }
-
-
   
   document.title = "Users List";
   return (
@@ -104,7 +103,7 @@ const UsersList = () => {
                   <CardTitle className="h4"></CardTitle>
                   <p className="card-title-desc"></p>
                   {console.log(data['rows'])}
-                  <MDBDataTable className="text-center" responsive bordered data={data} />
+                  <MDBDataTable responsive bordered data={data} />
                 </CardBody>
               </Card>
             </Col>

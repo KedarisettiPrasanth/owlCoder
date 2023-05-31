@@ -22,12 +22,11 @@ const User = new schema({
         minlength: 5,
         maxlength: 1024
     },
-    userType:{
+    user_type:{
         type:String,
         required:true,
         minlength:2,
         maxlength:20
-<<<<<<< HEAD
     },
     profile_pic:{
         type:String,
@@ -76,8 +75,6 @@ const User = new schema({
         required: true,
         minlength: 1,
         maxlength: 2
-=======
->>>>>>> parent of c0ad60c (Merge branch 'development' of https://github.com/KedarisettiPrasanth/owlCoder into development)
     }
 });
 

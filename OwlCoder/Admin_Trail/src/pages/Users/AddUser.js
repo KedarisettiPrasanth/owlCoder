@@ -49,6 +49,8 @@ const AddUser = () => {
             "status":0
         }
     );
+
+
     const fileChange = (e) => {
         setFile(e.target.files[0]);
     }
@@ -86,6 +88,8 @@ const AddUser = () => {
         formData.append('status', 1);
         // console.log(data)
         axiosAPI.post("http://localhost:5001/register", formData).then((res)=>{
+            console.log(res.status + "is the res status in front end")
+            console.log("hi")
             if(res.status==201){
                 // alert("user added")
                 toast.success('user Added', {
@@ -111,6 +115,7 @@ const AddUser = () => {
          })
         // }
     }
+
     const userTypeOptions = [
         {
             value:'', text:'Select type of User'
@@ -303,6 +308,8 @@ const AddUser = () => {
             });
         }
     }
+
+
     //for change tooltip display propery
     function changeHandeler(event, eleId) {
         if (event.target.value !== "")
@@ -332,19 +339,7 @@ const AddUser = () => {
         }),
         onSubmit: (values) => { 
 
-            axiosAPI.post("http://localhost:5001/register", {
-                user_name:values.username,
-                email:values.email,
-                password:values.password,
-                userType:userType
-            }).then((res)=>{
-                if(res.status==201){
-                    // navigate("/users-list");
-                    alert("user added")
-                    navigate("/users-list")
-                    
-                }
-            }).catch((err)=>console.log(err))
+          
             
         }
     });
@@ -519,7 +514,7 @@ const AddUser = () => {
                 <Container fluid={true}>
                     <Breadcrumbs title="Users" breadcrumbItem="Add User" />
                     <Row>
-                        <Col xl="6">
+                        <Col xl="12">
                             <Card>
                                 <CardBody>
                                     <h4 className="card-title"></h4>
@@ -527,24 +522,26 @@ const AddUser = () => {
                                     <Form className="row g-3 needs-validation"
                                         onSubmit={(e) => {
                                             e.preventDefault();
-                                            validation.handleSubmit();
+                                            // validation.handleSubmit();
+                                            UserAddSubmit();
                                             return false;
+                                            
                                         }}>
                                             <ToastContainer/>
                                         <Row>
                                             <Col md="6">
                                                 <FormGroup className="mb-3">
-                                                    <Label htmlFor="validationCustom01">Usertype</Label>
+                                                    <Label htmlFor="validationCustom01">Type of User</Label>
                                                     <Input
-                                                        name="userType"
+                                                        name="user_type"
                                                         type="select"
                                                         className="form-control"
                                                         id="validationCustom01"
                                                         onChange={handleChange}                                                        
                                                         value={userType}
                                                         invalid={
-                                                            validation.touched.userType &&
-                                                                validation.errors.userType
+                                                            validation.touched.user_type &&
+                                                                validation.errors.user_type
                                                                 ? true
                                                                 : false
                                                         }
@@ -555,10 +552,39 @@ const AddUser = () => {
                                                             ))
                                                         }
                                                     </Input>
-                                                    {validation.touched.userType &&
-                                                        validation.errors.userType ? (
+                                                    {validation.touched.user_type &&
+                                                        validation.errors.user_type ? (
                                                         <FormFeedback type="invalid">
-                                                            {validation.errors.userType}
+                                                            {validation.errors.user_type}
+                                                        </FormFeedback>
+                                                    ) : null}
+                                                </FormGroup>
+                                            </Col>
+
+                                            <Col md="6">
+                                                <FormGroup className="mb-3">
+                                                    <Label htmlFor="validationCustom01">Profile Pic</Label>
+                                                    <Input
+                                                        name="profile_pic"
+                                                        type="file"
+                                                        className="form-control"
+                                                        id="validationCustom01"
+                                                        onChange={e => { validation.handleChange(e); fileChange(e) }}
+                                                        // onChange={updateData}
+                                                        onBlur={validation.handleBlur}
+                                                        value={updateData.profile_pic}
+                                                        invalid={
+                                                            validation.touched.profile_pic &&
+                                                                validation.errors.profile_pic
+                                                                ? true
+                                                                : false
+                                                        }
+                                                    >
+                                                    </Input>
+                                                    {validation.touched.profile_pic &&
+                                                        validation.errors.profile_pic ? (
+                                                        <FormFeedback type="invalid">
+                                                            {validation.errors.profile_pic}
                                                         </FormFeedback>
                                                     ) : null}
                                                 </FormGroup>
@@ -568,27 +594,55 @@ const AddUser = () => {
                                         <Row>
                                             <Col md="6">
                                                 <FormGroup className="mb-3">
-                                                    <Label htmlFor="validationCustom01">Username</Label>
+                                                    <Label htmlFor="validationCustom01">First Name</Label>
                                                     <Input
-                                                        name="username"
-                                                        placeholder="Enter Username"
+                                                        name="first_name"
+                                                        placeholder="Enter First Name"
                                                         type="text"
                                                         className="form-control"
                                                         id="validationCustom01"
-                                                        onChange={validation.handleChange}
+                                                        onChange={updateData}
                                                         onBlur={validation.handleBlur}
-                                                        value={validation.values.username || ""}
+                                                        value={updateData['first_name']}
                                                         invalid={
-                                                            validation.touched.username &&
-                                                                validation.errors.username
+                                                            validation.touched.first_name &&
+                                                                validation.errors.first_name
                                                                 ? true
                                                                 : false
                                                         }
                                                     />
-                                                    {validation.touched.username &&
-                                                        validation.errors.username ? (
+                                                    {validation.touched.first_name &&
+                                                        validation.errors.first_name ? (
                                                         <FormFeedback type="invalid">
-                                                            {validation.errors.username}
+                                                            {validation.errors.first_name}
+                                                        </FormFeedback>
+                                                    ) : null}
+                                                </FormGroup>
+                                            </Col>
+
+                                            <Col md="6">
+                                                <FormGroup className="mb-3">
+                                                    <Label htmlFor="validationCustom01">Last Name</Label>
+                                                    <Input
+                                                        name="last_name"
+                                                        placeholder="Enter Last Name"
+                                                        type="text"
+                                                        className="form-control"
+                                                        id="validationCustom01"
+                                                        onChange={updateData}
+                                                        onBlur={validation.handleBlur}
+                                                        value={updateData['last_name']}
+                                                        invalid={
+                                                            validation.touched.last_name &&
+                                                                validation.errors.last_name
+                                                                ? true
+                                                                : false
+                                                        }
+                                                    />
+                                                    {validation.touched.last_name &&
+                                                        validation.errors.last_name ? (
+                                                        <FormFeedback type="invalid">
+                                                            {validation.errors.last_name}
                                                         </FormFeedback>
                                                     ) : null}
                                                 </FormGroup>
@@ -604,9 +658,9 @@ const AddUser = () => {
                                                         type="text"
                                                         className="form-control"
                                                         id="validationCustom02"
-                                                        onChange={validation.handleChange}
+                                                        onChange={updateData}
                                                         onBlur={validation.handleBlur}
-                                                        value={validation.values.email || ""}
+                                                        value={updateData['email']}
                                                         invalid={
                                                             validation.touched.email &&
                                                                 validation.errors.email
@@ -622,21 +676,18 @@ const AddUser = () => {
                                                     ) : null}
                                                 </FormGroup>
                                             </Col>
-                                        </Row>
-                                        <Row>
-                                        </Row>
-                                        <Row>
+
                                             <Col md="6">
                                                 <FormGroup className="mb-3">
                                                     <Label htmlFor="validationCustom03">Password</Label>
                                                     <Input
                                                         name="password"
                                                         placeholder="********"
-                                                        type="text"
+                                                        type="password"
                                                         className="form-control"
-                                                        onChange={validation.handleChange}
+                                                        onChange={updateData}
                                                         onBlur={validation.handleBlur}
-                                                        value={validation.values.password || ""}
+                                                        value={updateData['password']}
                                                         invalid={
                                                             validation.touched.password && validation.errors.password
                                                                 ? true
@@ -650,9 +701,64 @@ const AddUser = () => {
                                                     ) : null}
                                                 </FormGroup>
                                             </Col>
-                                        </Row>
 
+
+                                        </Row>
                                         <Row>
+                                        <Col md="6">
+                                                <FormGroup className="mb-3">
+                                                    <Label htmlFor="validationCustom02">Employee Id</Label>
+                                                    <Input
+                                                        name="emp_id"
+                                                        placeholder="Ex: 1234"
+                                                        type="text"
+                                                        className="form-control"
+                                                        id="validationCustom02"
+                                                        onChange={updateData}
+                                                        onBlur={validation.handleBlur}
+                                                        value={updateData['emp_id']}
+                                                        invalid={
+                                                            validation.touched.emp_id &&
+                                                                validation.errors.emp_id
+                                                                ? true
+                                                                : false
+                                                        }
+                                                    />
+                                                    {validation.touched.emp_id &&
+                                                        validation.errors.emp_id ? (
+                                                        <FormFeedback type="invalid">
+                                                            {validation.errors.emp_id}
+                                                        </FormFeedback>
+                                                    ) : null}
+                                                </FormGroup>
+                                            </Col>
+
+                                            <Col md="6">
+                                                <FormGroup className="mb-3">
+                                                    <Label htmlFor="validationCustom03">Phone </Label>
+                                                    <Input
+                                                        name="phone"
+                                                        placeholder="9876543210"
+                                                        type="text"
+                                                        className="form-control"
+                                                        onChange={updateData}
+                                                        onBlur={validation.handleBlur}
+                                                        value={updateData['phone']}
+                                                        invalid={
+                                                            validation.touched.phone && validation.errors.phone
+                                                                ? true
+                                                                : false
+                                                        }
+                                                    />
+                                                    {validation.touched.city && validation.errors.phone ? (
+                                                        <FormFeedback type="invalid">
+                                                            {validation.errors.phone}
+                                                        </FormFeedback>
+                                                    ) : null}
+                                                </FormGroup>
+                                            </Col>
+                                        </Row>
+                                        {/* <Row>
                                             <Col lg="12">
                                                 <FormGroup className="mb-3">
                                                     <div className="form-check">
@@ -671,7 +777,7 @@ const AddUser = () => {
                                                     </div>
                                                 </FormGroup>
                                             </Col>
-                                        </Row>
+                                        </Row> */}
                                         <div className="col-12">
                                             <button className="btn btn-primary" type="submit">Submit form</button>
                                         </div>
