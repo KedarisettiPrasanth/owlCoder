@@ -65,8 +65,8 @@ const AddUser = () => {
     //Submit 
     const UserAddSubmit = ()=>{
         setFormErrors(validate(data));
-        var err_res = validate(data);  
-        console.log(err_res);  
+        // var err_res = validate(data);  
+        // console.log(err_res);  
         // console.log(validate(studentdata).length);
         // let objectLength = Object.entries(err_res).length; 
         // console.log(objectLength);
@@ -91,7 +91,7 @@ const AddUser = () => {
             console.log(res.status + "is the res status in front end")
             console.log("hi")
             if(res.status==201){
-                alert("user added")
+                // alert("user added")
                 toast.success('user Added', {
                     position: "top-right",
                     hideProgressBar: false,
@@ -104,7 +104,7 @@ const AddUser = () => {
             console.log(error)
             if (error.response.status === 400) {
              console.log(error.message);
-             alert("user not added")
+            //  alert("user not added")
              toast.error('not Added', {
                 position: "top-right",
                 hideProgressBar: false,
@@ -182,7 +182,131 @@ const AddUser = () => {
     }
 
     const validate = (values) => {
-    
+        const errors = {};
+        const email_regex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i;
+        const mobile_regex = /^(0|91)?[6-9][0-9]{9}$/;
+        const emp_id_regex = /^[0-9\b]+$/;
+        const name_regex = /^[a-z][a-z\s]*$/;
+        if(!values.first_name)
+        {
+            errors.first_name = "Firstname is required!";
+            toast.error('Firstname is required!', {
+                position: "top-right",
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+            });
+        }else if(!name_regex.test(values.first_name)){
+            errors.first_name = "Firstname is required";
+            toast.error('Invalid Firstname format!', {
+                position: "top-right",
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+            });
+        }
+        if(!values.last_name)
+        {
+            errors.last_name = "Lastname is required";
+            toast.error('Lastname is required!', {
+                position: "top-right",
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+            });
+        }else if(!name_regex.test(values.last_name)){
+            errors.last_name = "Lastname is required";
+            toast.error('Invalid Lastname format!', {
+                position: "top-right",
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+            });
+        }
+        if(!values.email)
+        {
+            errors.email = "Email is required";
+            toast.error('Email is required!', {
+                position: "top-right",
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+            });
+        }else if(!email_regex.test(values.email)){
+            errors.email = "Email is required";
+            toast.error('Invalid email format!', {
+                position: "top-right",
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+            });
+        }
+        if(!values.phone)
+        {
+            errors.phone = "Phone is required";
+            toast.error('Phone is required!', {
+                position: "top-right",
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+            });
+        }else if(!mobile_regex.test(values.phone)){
+            errors.phone = "Email is required";
+            toast.error('Invalid Mobile number format!', {
+                position: "top-right",
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+            });
+        }
+        if(!values.emp_id)
+        {
+            errors.emp_id = "Employee id is required";
+            toast.error('Employee id is required!', {
+                position: "top-right",
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+            });
+        }else if(!emp_id_regex.test(values.emp_id)){
+            errors.emp_id = "Employee id is required";
+            toast.error('Only numbers allowed for employee id!', {
+                position: "top-right",
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+            });
+        }
+        if(!values.password)
+        {
+            errors.password = "Password is required";
+            toast.error('Password is required!', {
+                position: "top-right",
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+            });
+        }
+        if(!userType)
+        {
+            errors.password = "Select user type";
+            toast.error('Select user type!', {
+                position: "top-right",
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+            });
+        }
+        if(!file)
+        {
+            errors.password = "Select profile pic";
+            toast.error('Select profile pic!', {
+                position: "top-right",
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+            });
+        }
     }
 
 

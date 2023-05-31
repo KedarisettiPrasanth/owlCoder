@@ -75,7 +75,7 @@ const Register = props => {
       password:userValues.password,
     }).then(res=>res.data)
     .catch((err)=>{console.log(err)
-      console.log("hi")
+    
     toast.error('not Added', {
       position: "top-right",
       hideProgressBar: false,

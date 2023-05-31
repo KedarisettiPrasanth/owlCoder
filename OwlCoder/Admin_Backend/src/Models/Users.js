@@ -36,15 +36,15 @@ const User = new schema({
     },
     profile_pic:{
         type:String,
-        validate: {
-            validator: function(value) {
-              // Perform your MIME type validation here
-              const allowedMimeTypes = ['image/jpeg', 'image/png'];
-              const mimeType = value.split(';')[0]; // Extract MIME type from the value
-              return allowedMimeTypes.includes(mimeType);
-            },
-            message: 'Invalid MIME type for the image field',
-          },
+        // validate: {
+        //     validator: function(value) {
+        //       // Perform your MIME type validation here
+        //       const allowedMimeTypes = ['image/jpeg', 'image/png'];
+        //       const mimeType = value.split(';')[0]; // Extract MIME type from the value
+        //       return allowedMimeTypes.includes(mimeType);
+        //     },
+        //     message: 'Invalid MIME type for the image field',
+        //   },
     },
     emp_id: {
         type: String,

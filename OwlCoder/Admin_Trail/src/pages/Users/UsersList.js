@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { MDBDataTable } from "mdbreact";
-import { Row, Col, Card, CardBody, CardTitle, CardSubtitle } from "reactstrap";
+import { Row, Col, Card, CardBody, CardTitle, CardSubtitle, Badge  } from "reactstrap";
 import SidebarContent, { axiosAPI } from "components/VerticalLayout/SidebarContent";
 import AddCourse from "pages/Courses/AddCourse";
 //Import Breadcrumb
@@ -68,6 +68,12 @@ const UsersList = () => {
         sort: "asc",
         width: 200,
       },
+      {
+        label: "Action",
+        field: "action",
+      
+        width: 200,
+      },
     ],
     rows: users
   };
@@ -75,6 +81,11 @@ const UsersList = () => {
     users.map((item)=>{
       // console.log(item)
       item.profile_pic = (<img src={"../../../Admin_Backend/uploads/user_icons/"+item.profile_pic} alt="image"/>)
+      let activeBtn =  ( <Badge className="bg-success badge bg-secondary">ACTIVE</Badge>)
+      let inActiveBtn = ( <Badge className="bg-danger badge bg-secondary">INACTIVE</Badge>)
+      let isStatus = (item.status === 1 ? activeBtn : inActiveBtn)
+      item.status = (isStatus)
+      item.action = (<button className="btn btn-danger" ><i className="mdi mdi-account-edit"></i></button>)
     })
   }
   
