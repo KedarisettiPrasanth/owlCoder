@@ -176,8 +176,6 @@ const AddUser = () => {
         }
     }
 
-<<<<<<< HEAD
-=======
     const validate = (values) => {
         const errors = {};
         const email_regex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i;
@@ -305,9 +303,6 @@ const AddUser = () => {
             });
         }
     }
-
-
->>>>>>> 8c99dbaa76fbcc6bff482212b64c8fef746f065a
     //for change tooltip display propery
     function changeHandeler(event, eleId) {
         if (event.target.value !== "")

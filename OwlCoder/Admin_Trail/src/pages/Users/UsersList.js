@@ -74,13 +74,10 @@ const UsersList = () => {
     ],
     rows: users
   };
-<<<<<<< HEAD
   if(data){
     users.map((item)=>{
-<<<<<<< HEAD
       console.log(item.profile_pic)
       item.profile_pic = (<img src={"http://localhost:5001/user-icons/"+ item.profile_pic} alt="image" height="75px" width="75px"/>)
-=======
       // console.log(item)
       item.profile_pic = (<img src={"../../../Admin_Backend/uploads/user_icons/"+item.profile_pic} alt="image"/>)
       let activeBtn =  ( <Badge className="bg-success badge bg-secondary">ACTIVE</Badge>)
@@ -88,12 +85,10 @@ const UsersList = () => {
       let isStatus = (item.status === 1 ? activeBtn : inActiveBtn)
       item.status = (isStatus)
       item.action = (<button className="btn btn-danger" ><i className="mdi mdi-account-edit"></i></button>)
->>>>>>> 8c99dbaa76fbcc6bff482212b64c8fef746f065a
     })
   }
-=======
 
->>>>>>> parent of c0ad60c (Merge branch 'development' of https://github.com/KedarisettiPrasanth/owlCoder into development)
+
   
   document.title = "Users List";
   return (
